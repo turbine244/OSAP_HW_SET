@@ -1,0 +1,105 @@
+//====----====----====----====----====----====----====----====---- 라이선스 명시부(모든 파일 공통)
+
+/*
+Copyright 2023 New_York_Cheesecake
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+//====----====----====----====----====----====----====----====---- 헤더 파일(.h) 추가 작성부
+
+/*
+ * FileName : AvlTree.h
+ * Content	: struct 1 | class 1
+ * Test info : Not-yet
+ *
+ * !Remark!
+ * AVL Tree implementation as a C++ class.
+ * All comments are made with consideration
+ * that the reader has prior knowledge of "AVL Tree"
+ * The code follows the style guide - CSE3210.
+ *
+ * struct 1 - Node
+ *   !Members(3)
+ *     int key
+ *     Node* left
+ *     Node* right
+ *
+ * class 1 - AvlTree
+ *   !Members(1)
+ *     Node* root_
+ *
+ *   !Methods(4 public | 2 private)
+ *     public
+ *       Node *root()
+ *         ~ Getter of the member "root_".
+ *
+ *       void AvlInsertNode(int k)
+ *         ~ Inset a node with key of "k".
+ *         ~ "root_" may be changed.
+ *
+ *       void AvlDeleteNode(int k)
+ *         ~ Delete a node with key of "k".
+ *         ~ "root_" may be changed.
+ *
+ *       int AvlDepth(int k)
+ *         ~ Return depth of the node with key of "k".
+ *
+ *     + Constructor(1)
+ *       AvlTree()
+ *         ~ Create an empty "AVL Tree".
+ *
+ *     private
+ *       int AvlBalanceFactor()
+ *         ~ Return the "Balance Factor".
+ *
+ *       void AvlRotate()
+ *         ~ Do 4 different rotation, depending on the "Balance Factor"
+ */
+
+//====----====----====----====----====----====----====----====---- 소스 파일(.cc) 추가 작성부
+
+/*
+* FileName  : example_source.cc
+* Content   : function 8
+* Test info : Not-yet
+*
+* !Remark!
+* I’m starving.
+* Really need someone who’d recommend me a decent dinner menu.
+* !!Plz NO Chinese food(I had one for lunch)
+* By the way, codes work.
+*/
+
+//====----====----====----====----====----====----====----====---- 함수 내부에 주석 작성 시
+
+void Do_Nothing() {
+    // 1 : Alloc an integer
+    int num = new int;
+
+    // 2 : Nay, Done with this guy. Delete it.
+    delete num;
+}
+
+void Func_Example() {
+    // 1 : Say hi
+    printf("hi");
+
+    // 2 : Fool around for a moment
+    for (int i = 0; i < 10; i++) {
+        Do_Nothing();
+    }
+
+    // 3 : Say bye
+    printf("bye");
+}
