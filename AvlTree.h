@@ -67,20 +67,141 @@ struct Node {
   int key;
   Node *left;
   Node *right;
+  Node *parent;
 };
 
 class AvlTree {
 public:
-  AvlTree();
+  AvlTree() : root_(nullptr) {}
 
-  Node *root();
+  Node *root() {
+    return root_;
+  }
+  
+  void AvlSearchNode(Node* curnode, int k) {
+    if (curnode == NULL) {
+      return NULL;
+    }
+    
+    if (curnode->key == k) {
+      return curnode;
+    }
+    else if (curnode->key < k) {
+      return AvlSearchNode(curnode->right, k);
+    }
+    else {
+      return AvlSearchNode(curnode->left, k);
+    }
+  }
 
-  void AvlInsertNode(int k);
-  void AvlDeleteNode(int k);
-  int AvlDepth(int k);
+  void AvlInsertNode(int k) {
+    Node* newnode = new node(k);
+
+    if(root_ == NULL) {
+      root_ = newnode;
+      return;
+    }
+    
+    Node* curnode = root_;
+    Node* parnode = NULL;
+
+    while (curnode != NULL) {
+      parnode = curnode;
+
+      if (curnode->key < k) {
+        curnode = curnode->right;
+      }
+      else {
+        curnode = curnode->left;
+      }
+    }
+
+    newnode->parent = parnode;
+
+    if (parnode->key < k) {
+      parnode->right = newnode;
+    }
+    else {
+      parnode->left = newnode;
+    }
+
+    AvlRotate();
+  }
+
+  void AvlDeleteNode(int k) {
+    Node* delnode = AvlSearchNode(root_, k);
+    
+    if (delnode == null) {
+      return;
+    }
+
+    Node* parnode = delnode->parent;
+    Node* childnode;
+
+    if (delnode->left == NULL && delnode->right == NULL) {
+      childnode = NULL;
+    }
+    else if (delnode->left == NULL && delnode->right != NULL) {
+      childnode = delnode->right;
+    }
+    else if (delnode->left != NULL && delnode->right == NULL) {
+      childnode = delnode->left;
+    }
+    else {
+      childnode = delnode->right;
+
+      while (childnode->left != NULL) {
+        childnode = chlidenode->left;
+      }
+
+      delnode->key = childnode->key;
+      delnode = childnode;
+      parnode = delnode->parent;
+      childnode = delnode->right;
+    }
+
+    if (parnode == NULL) {
+      root_ = childnode;
+      root->parent = NULL;
+    }
+    else if (delnode == parnode->left) {
+      parnode->left = childnode;
+
+      if (childnode != NULL) {
+        childnode->parent = parnode;
+      }
+    }
+    else {
+      parnode->right = childnode;
+
+      if (childnode != NULL) {
+        childnode->parent = parnode;
+      }
+    }
+
+    delete delnode;
+
+    AvlRotate();
+  }
+
+  int AvlDepth(Node* curnode, int k, int d) {
+    if (curnode == NULL) {
+      return -1;
+    }
+
+    if (curnode->key == k) {
+      return d;
+    }
+    else if (curnode->key < k) {
+      return AvlDepth(curnode->right, k, d + 1);
+    }
+    else {
+      return AvlDepth(curnode->left, k, d + 1);
+    }
+  }
 
 private:
-  int AvlBalanceFacor();
+  int AvlBalanceFactor();
   void AvlRotate();
 
   Node *root_;
