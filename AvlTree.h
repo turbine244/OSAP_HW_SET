@@ -59,29 +59,41 @@ limitations under the License.
  *       int AvlBalanceFactor()
  *         ~ Return the "Balance Factor".
  *
- *       void AvlRotate()
- *         ~ Do 4 different rotation, depending on the "Balance Factor"
+ *       void AvlRebalance()
+ *         ~ Rebalance the "AVL Tree", depending on the "Balance Factor"
+ *
+ *       Node* RightRotation()
+ *         ~ Do right rotation to balance the "AVL Tree"
+ *         ~ Submethod for AvlRebalance()
+ *
+ *       Node* LeftRotation()
+ *         ~ Do left rotation to balance the "AVL Tree"
+ *         ~ Submethod for AvlRebalance()
  */
 
 struct Node {
   int key;
   Node *left;
   Node *right;
+  int height;
 };
 
 class AvlTree {
 public:
   AvlTree();
 
-  Node *root();
+  Node *get_root();
+  void set_root(Node *node);
 
   void AvlInsertNode(int k);
   void AvlDeleteNode(int k);
   int AvlDepth(int k);
 
 private:
-  int AvlBalanceFacor();
-  void AvlRotate();
+  int AvlBalanceFactor(Node *node);
+  void AvlRebalance();
+  Node *RightRotation(Node *node);
+  Node *LeftRotation(Node *node);
 
   Node *root_;
-}
+};
