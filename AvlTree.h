@@ -35,7 +35,7 @@ limitations under the License.
  *   !Members(1)
  *     Node* root_
  *
- *   !Methods(4 public | 2 private)
+ *   !Methods(4 public | 4 private)
  *     public
  *       Node *root()
  *         ~ Getter of the member "root_".
@@ -59,14 +59,23 @@ limitations under the License.
  *       int AvlBalanceFactor()
  *         ~ Return the "Balance Factor".
  *
- *       void AvlRotate()
- *         ~ Do 4 different rotation, depending on the "Balance Factor"
+ *       void AvlRebalance()
+ *         ~ Rebalance the "AVL Tree", depending on the "Balance Factor"
+ *
+ *       Node* RightRotation()
+ *         ~ Do right rotation to balance the "AVL Tree"
+ *         ~ Submethod for AvlRebalance()
+ *
+ *       Node* LeftRotation()
+ *         ~ Do left rotation to balance the "AVL Tree"
+ *         ~ Submethod for AvlRebalance()
  */
 
 struct Node {
   int key;
   Node *left;
   Node *right;
+  int height;
 };
 
 class AvlTree {
@@ -80,8 +89,10 @@ public:
   int AvlDepth(int k);
 
 private:
-  int AvlBalanceFacor();
-  void AvlRotate();
+  int AvlBalanceFactor(Node *node);
+  void AvlRebalance();
+  Node *RightRotation(Node *node);
+  Node *LeftRotation(Node *node);
 
   Node *root_;
-}
+};

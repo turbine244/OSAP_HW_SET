@@ -16,7 +16,7 @@ limitations under the License.
 
 /*
  * FileName  : AvlTree.cc
- * Content   : function 7
+ * Content   : function 9
  * Test info : Not-yet
  *
  * !Remark!
@@ -37,6 +37,84 @@ AvlTree::AvlDeleteNode(int k) {}
 
 AvlTree::AvlDepth(int k) {}
 
-AvlTree::AvlBalanceFactor() {}
+int AvlTree::AvlBalanceFactor(Node *node) {
+  // 1 : Get height of each subtrees
+  int left_subtree_height = node->left->height;
+  int right_subtree_height = node->right->height;
 
-AvlTree::AvlRotate() {}
+  // 2 : Returns the height difference between both subtrees
+  return left_subtree_height - right_subtree_height;
+}
+
+void AvlTree::AvlRebalance() {
+  // 1 : get balance factor (bf)
+  int balance_factor = AvlBalanceFactor(root_);
+
+  // 2 : z's left subtree is taller than right subtree
+  if (balance_factor > 1) {
+
+    // 2 - 1 : y's left subtree is taller than right one
+    // LL rotation
+    if (root_->key < root_->left->key) {
+      // 2 - 1 - 1: do right rotation
+      root_ = RightRotation(root_);
+
+      // 2 - 2 : y's right subtree is taller than left one
+      // LR rotation
+    } else if (root_->key > root_->left->key) {
+      // 2 - 2 - 1 : do left rotation for y, do right rotation for z
+      root_->left = LeftRotation(root_->left);
+      root_ = RightRotation(root_);
+
+      // 2 - 3 : Error handling (error code : 1)
+    } else {
+    }
+  }
+
+  // 3 : z's right subtree is taller than left subtree
+  else if (balance_factor < -1) {
+
+    // 3 - 1 : y's right subtree is taller than left subtree
+    // RR rotation
+    if (root_->key > root_->left->key) {
+      root_ = LeftRotation(root_);
+
+      // 3 - 2 : y's left subtree is taller than right subtree
+      // RL rotation
+    } else if (root_->key < root_->left->key) {
+      // 3 - 2 - 1 : do right rotation for y, do left rotation for z
+      root_->right = RightRotation(root_->right);
+      root_ = LeftRotation(root_);
+
+      // 3 - 3 : Error handling (error code : 1)
+    } else {
+      ;
+    }
+  }
+
+  // 4 : Tree is balanced
+  else {
+  }
+}
+
+Node *AvlTree::RightRotation(Node *node) {
+  // 1 : Do right rotation
+  Node *new_root = node->left;
+  new_root->right = node;
+  node->left = new_root->right;
+
+  // 2 : Commit changed root
+  root_ = new_root;
+  return new_root;
+}
+
+Node *AvlTree::LeftRotation(Node *node) {
+  // 1 : Do left rotation
+  Node *new_root = node->right;
+  new_root->left = node;
+  node->right = new_root->left;
+
+  // 2 : Commit changed root
+  root_ = new_root;
+  return new_root;
+}
