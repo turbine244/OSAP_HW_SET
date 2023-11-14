@@ -35,7 +35,7 @@ limitations under the License.
  *   !Members(1)
  *     Node* root_
  *
- *   !Methods(4 public | 2 private)
+ *   !Methods(4 public | 4 private)
  *     public
  *       Node *root()
  *         ~ Getter of the member "root_".
@@ -82,8 +82,7 @@ class AvlTree {
 public:
   AvlTree();
 
-  Node *get_root();
-  void set_root(Node *node);
+  Node *root();
 
   void AvlInsertNode(int k);
   void AvlDeleteNode(int k);

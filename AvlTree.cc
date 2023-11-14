@@ -16,7 +16,7 @@ limitations under the License.
 
 /*
  * FileName  : AvlTree.cc
- * Content   : function 10
+ * Content   : function 9
  * Test info : Not-yet
  *
  * !Remark!
@@ -29,9 +29,7 @@ limitations under the License.
 
 AvlTree::AvlTree() {}
 
-AvlTree::get_root() {}
-
-AvlTree::set_root() {}
+AvlTree::root() {}
 
 AvlTree::AvlInsertNode(int k) {}
 
@@ -50,23 +48,23 @@ int AvlTree::AvlBalanceFactor(Node *node) {
 
 void AvlTree::AvlRebalance() {
   // 1 : get balance factor (bf)
-  int balance_factor = AvlBalanceFactor(get_root());
+  int balance_factor = AvlBalanceFactor(root_);
 
   // 2 : z's left subtree is taller than right subtree
   if (balance_factor > 1) {
 
     // 2 - 1 : y's left subtree is taller than right one
     // LL rotation
-    if (get_root()->key < get_root()->left->key) {
+    if (root_->key < root_->left->key) {
       // 2 - 1 - 1: do right rotation
-      set_root(RightRotation(get_root()));
+      root_ = RightRotation(root_);
 
       // 2 - 2 : y's right subtree is taller than left one
       // LR rotation
-    } else if (get_root()->key > get_root()->left->key) {
+    } else if (root_->key > root_->left->key) {
       // 2 - 2 - 1 : do left rotation for y, do right rotation for z
-      get_root()->left = LeftRotation(get_root()->left);
-      set_root(RightRotation(get_root()));
+      root_->left = LeftRotation(root_->left);
+      root_ = RightRotation(root_);
 
       // 2 - 3 : Error handling (error code : 1)
     } else {
@@ -78,15 +76,15 @@ void AvlTree::AvlRebalance() {
 
     // 3 - 1 : y's right subtree is taller than left subtree
     // RR rotation
-    if (get_root()->key > get_root()->left->key) {
-      set_root(LeftRotation(get_root()));
+    if (root_->key > root_->left->key) {
+      root_ = LeftRotation(root_);
 
       // 3 - 2 : y's left subtree is taller than right subtree
       // RL rotation
-    } else if (get_root()->key < get_root()->left->key) {
+    } else if (root_->key < root_->left->key) {
       // 3 - 2 - 1 : do right rotation for y, do left rotation for z
-      get_root()->right = RightRotation(get_root()->right);
-      set_root(LeftRotation(get_root()));
+      root_->right = RightRotation(root_->right);
+      root_ = LeftRotation(root_);
 
       // 3 - 3 : Error handling (error code : 1)
     } else {
@@ -105,8 +103,8 @@ Node *AvlTree::RightRotation(Node *node) {
   new_root->right = node;
   node->left = new_root->right;
 
-  // 1 : Commit changed root
-  set_root(new_root);
+  // 2 : Commit changed root
+  root_ = new_root;
   return new_root;
 }
 
@@ -116,7 +114,7 @@ Node *AvlTree::LeftRotation(Node *node) {
   new_root->left = node;
   node->right = new_root->left;
 
-  // 1 : Commit changed root
-  set_root(new_root);
+  // 2 : Commit changed root
+  root_ = new_root;
   return new_root;
 }
