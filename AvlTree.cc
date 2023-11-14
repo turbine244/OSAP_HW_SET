@@ -16,7 +16,7 @@ limitations under the License.
 
 /*
  * FileName  : AvlTree.cc
- * Content   : function 9
+ * Content   : function 10
  * Test info : Not-yet
  *
  * !Remark!
@@ -27,15 +27,182 @@ limitations under the License.
 
 #include "AvlTree.h"
 
-AvlTree::AvlTree() {}
+AvlTree::AvlTree() : root_(nullptr) {}
 
-AvlTree::root() {}
+Node* AvlTree::root() {
+  return root_;
+}
 
-AvlTree::AvlInsertNode(int k) {}
+Node* AvlTree::AvlSearchNode(Node* node, int k) {
+  // 1 : tree is empty
+  if (node == NULL) {
+      return NULL;
+  }
 
-AvlTree::AvlDeleteNode(int k) {}
+  // 2 - 1 : key of current node is equal to target key
+  if (node->key == k) {
+      return node;
+  }
 
-AvlTree::AvlDepth(int k) {}
+  // 2 - 2 : key of current node is less than target key
+  else if (node->key < k) {
+      return AvlSearchNode(node->right, k);
+  }
+
+  // 2 - 3 : key of current node is greater than target key
+  else {
+      return AvlSearchNode(node->left, k);
+  }
+}
+
+void AvlTree::AvlInsertNode(int k) {
+  // 1 : create a node with key of "k"
+  Node* new_node = new node(k);
+
+  // 2 : tree is empty
+  if(root_ == NULL) {
+      root_ = new_node;
+      return;
+  }
+
+  // create two nodes
+  // one for the new node to insert
+  // two for the parent node of that node
+  Node* cur_node = root_;
+  Node* par_node = NULL;
+
+  // 3 : repeat search until reaching a leaf node
+  while (cur_node != NULL) {
+    par_node = cur_node;
+
+    // 3 - 1 : key of current node is less than target key
+    if (cur_node->key < k) {
+      cur_node = cur_node->right;
+    }
+
+    // 3 - 1 : key of current node is greater than target key
+    else {
+      cur_node = cur_node->left;
+    }
+  }
+
+  new_node->parent = par_node;
+
+  // 4 : insert the node
+
+  // 4 - 1 : key of parent node is less than target key
+  if (par_node->key < k) {
+      par_node->right = new_node;
+  }
+
+  // 4 - 2 : key of parent node is greater than target key
+  else {
+      par_node->left = new_node;
+  }
+
+  // 5 : rebalance the tree
+  AvlRebalance();
+}
+
+void AvlTree::AvlDeleteNode(int k) {
+  // 1 : search a node to delete with key of "k"
+  Node* del_node = AvlSearchNode(root_, k);
+  
+  // 2 : tree is empty
+  if (del_node == null) {
+    return;
+  }
+
+  // create two nodes
+  // one for the parent node of the node to delete
+  // two for the child node
+  Node* par_node = del_node->parent;
+  Node* child_node;
+    
+  // 3 - 1 : node to delete has no children
+  if (del_node->left == NULL && del_node->right == NULL) {
+    child_node = NULL;
+  }
+
+  // 3 - 2 : node to delete has children only on the right
+  else if (del_node->left == NULL && del_node->right != NULL) {
+    child_node = del_node->right;
+  }
+
+  // 3 - 3 : node to delete has children only on the left
+  else if (del_node->left != NULL && del_node->right == NULL) {
+    child_node = del_node->left;
+  }
+
+  // 3 - 4 : node to delete has children on both sides
+  else {
+    child_node = del_node->right;
+
+    // search for 'successor'
+    while (child_node->left != NULL) {
+      child_node = chlid_node->left;
+    }
+
+    // move the successor to the position of node to delete
+    // move the successor's child node to the position of successor
+    del_node->key = child_node->key;
+    del_node = child_node;
+    par_node = del_node->parent;
+    child_node = del_node->right;
+  }
+
+  // 4 - 1 : node to delete has no parent
+  if (par_node == NULL) {
+    root_ = child_node;
+    root->parent = NULL;
+  }
+
+  // 4 - 2 : node to delete is left child of parent
+  else if (del_node == par_node->left) {
+    par_node->left = child_node;
+
+    if (child_node != NULL) {
+      child_node->parent = par_node;
+    }
+  }
+
+  // 4 - 3 : node to delete is right child of parent
+  else {
+    par_node->right = child_node;
+
+    if (child_node != NULL) {
+      child_node->parent = par_node;
+    }
+  }
+  
+  // 5 : delete the node
+  delete del_node;
+
+  // 6 : rebalance the tree
+  AvlRebalance();
+}
+
+int AvlTree::AvlDepth(Node* node, int k, int d) {
+  // 1 : tree is empty
+  if (node == NULL) {
+    return -1;
+  }
+
+  // 2 - 1 : key of current node is equal to target key
+  if (node->key == k) {
+    return d;
+  }
+
+  // 2 - 2 : key of current node is less than target key
+  else if (node->key < k) {
+    return AvlDepth(node->right, k, d + 1);
+  }
+
+  // 2 - 3 : key of current node is greater than target key
+  else {
+    return AvlDepth(node->left, k, d + 1);
+  }
+}
 
 int AvlTree::AvlBalanceFactor(Node *node) {
   // 1 : Get height of each subtrees
