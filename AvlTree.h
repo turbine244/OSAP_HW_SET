@@ -30,15 +30,20 @@ limitations under the License.
  *     int key
  *     Node* left
  *     Node* right
+ *     Node* parent
+ *     int height
  *
  * class 1 - AvlTree
  *   !Members(1)
  *     Node* root_
  *
- *   !Methods(4 public | 4 private)
+ *   !Methods(5 public | 4 private)
  *     public
  *       Node *root()
  *         ~ Getter of the member "root_".
+ *
+ *       Node *AvlSearchNode(Node* node, int k)
+ *         ~ Return pointer of the node with key of "k".
  *
  *       void AvlInsertNode(int k)
  *         ~ Inset a node with key of "k".
@@ -48,8 +53,8 @@ limitations under the License.
  *         ~ Delete a node with key of "k".
  *         ~ "root_" may be changed.
  *
- *       int AvlDepth(int k)
- *         ~ Return depth of the node with key of "k".
+ *       int AvlDepth(Node* node, int k, int d)
+ *         ~ Return depth("d") of the node with key of "k".
  *
  *     + Constructor(1)
  *       AvlTree()
@@ -75,6 +80,7 @@ struct Node {
   int key;
   Node *left;
   Node *right;
+  Node *parent;
   int height;
 };
 
@@ -84,9 +90,10 @@ public:
 
   Node *root();
 
+  Node *AvlSearchNode(Node* node, int k);
   void AvlInsertNode(int k);
   void AvlDeleteNode(int k);
-  int AvlDepth(int k);
+  int AvlDepth(Node* node, int k, int d);
 
 private:
   int AvlBalanceFactor(Node *node);
