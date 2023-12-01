@@ -21,7 +21,7 @@ limitations under the License.
  *
  * !Remark!
  * The file works as a productive endpoint.
- * (Including this only file makes your target-user-file work).
+ * (Including this only file makes your target-user-file work)
  * The code follows the style guide - CSE3210.
  */
 
