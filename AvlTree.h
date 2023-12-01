@@ -26,7 +26,7 @@ limitations under the License.
  * The code follows the style guide - CSE3210.
  *
  * struct 1 - Node
- *   !Members(3)
+ *   !Members(5)
  *     int key
  *     Node* left
  *     Node* right
@@ -37,15 +37,15 @@ limitations under the License.
  *   !Members(1)
  *     Node* root_
  *
- *   !Methods(5 public | 4 private)
+ *   !Methods(6 public | 4 private)
  *     public
- *       Node *root()
+ *       Node* root()
  *         ~ Getter of the member "root_".
  *
- *       Node *AvlSearchNode(Node* node, int k)
+ *       Node* AvlSearchNode(Node* node, int k)
  *         ~ Return pointer of the node with key of "k".
  *
- *       void AvlInsertNode(int k)
+ *       void AvlInsertNode(int k, Node* &node)
  *         ~ Inset a node with key of "k".
  *         ~ "root_" may be changed.
  *
@@ -55,51 +55,59 @@ limitations under the License.
  *
  *       int AvlDepth(Node* node, int k, int d)
  *         ~ Return depth("d") of the node with key of "k".
+ *         ~ Return 0 if tree do not have a node with key of "k"
+ *
+ *       int AvlHeight(Node* node);
+ *         ~ Return height of the node.
  *
  *     + Constructor(1)
  *       AvlTree()
  *         ~ Create an empty "AVL Tree".
  *
  *     private
- *       int AvlBalanceFactor()
+ *       int AvlBalanceFactor(Node* node)
  *         ~ Return the "Balance Factor".
  *
- *       void AvlRebalance()
+ *       void AvlRebalance(Node* &node, int x)
  *         ~ Rebalance the "AVL Tree", depending on the "Balance Factor"
  *
- *       Node* RightRotation()
+ *       Node* RightRotation(Node* node)
  *         ~ Do right rotation to balance the "AVL Tree"
  *         ~ Submethod for AvlRebalance()
  *
- *       Node* LeftRotation()
+ *       Node* LeftRotation(Node* node)
  *         ~ Do left rotation to balance the "AVL Tree"
  *         ~ Submethod for AvlRebalance()
  */
 
+#pragma once
+#include <iostream>
+using namespace std;
+
 struct Node {
-  int key;
-  Node *left;
-  Node *right;
-  Node *parent;
-  int height;
+	int key;
+	Node* left;
+	Node* right;
+	Node* parent;
+	int height;
 };
 
 class AvlTree {
 public:
-  AvlTree();
+	AvlTree();
 
-  Node *root();
-
-  Node *AvlSearchNode(Node* node, int k);
-  void AvlInsertNode(int k);
-  void AvlDeleteNode(int k);
-  int AvlDepth(Node* node, int k, int d);
+	Node* root();
+	Node* AvlSearchNode(Node* node, int k);
+	void AvlInsertNode(int k, Node*& node);
+	void AvlDeleteNode(int k);
+	int AvlDepth(Node* node, int k, int d);
+	int AvlHeight(Node* node);
 
 private:
-  int AvlBalanceFactor(Node *node);
-  void AvlRebalance();
-  Node *RightRotation(Node *node);
-  Node *LeftRotation(Node *node);
+	int AvlBalanceFactor(Node* node);
+	void AvlRebalance(Node*& node, int x);
+	Node* RightRotation(Node* node);
+	Node* LeftRotation(Node* node);
 
-  Node *root_;
+	Node* root_;
 };
