@@ -1,0 +1,62 @@
+1. TestCase는 AvlTree의 하위 함수, Set의 하위 함수에 대하여 이루어집니다.
+
+2. File Structure
+/test
+  /unit                        # test code files for AvlTree
+    /test_fixture.h
+    /test_fixture.cc           # define test fixture class
+    /tree_insert.cc
+    /tree_min_max.cc
+    /tree_print_depth.cc
+    /tree_root.cc
+    /tree_search.cc
+    /tree_size.cc
+    /tree_verify.cc*
+    /tree_balance_check.cc*
+    /test_runner.cc            # define main function for tests
+  /integration                 # test code files for Set
+    /test_fixture.h
+    /test_fixture.cc           # define test fixture class
+    /set_erase.cc
+    /set_find.cc
+    /set_insert.cc
+    /set_min_max.cc
+    /set_rank.cc
+    /set_size.cc
+    /test_runner.cc            # define main function for tests
+  /lib                         # library code for tests
+    /library_code.h
+    /library_code.cc
+
+/unit : AvlTree class에 대한 test case 작성 (모듈 단위)
+/integration : Set class에 대한 test case 작성 (기능 단위)
+/lib : GenerateRandomNumber, Traverse 등 테스트에 유용한 함수 정의
+
+3. 최상위 디렉토리 및 모든 하위 디렉토리는 CMakeLists.txt를 통해서 정의됩니다.
+   Test Case에 대한 executable file은 각각 아래와 같은 경로와 이름으로 생성됩니다.
+
+   build/test/unit : UnitTests
+   build/test/integration : IntegrationTests
+   build/src : mainApp
+
+
+4. Test Suite의 작명 규칙은 다음을 따릅니다.
+   Fixture를 사용하는 경우 : unit의 경우 - UnitTestFixture
+                            integration의 경우 - IntegrationTestFixture
+   Fixture를 사용하지 않는 경우 : 파일 이름을 반영하여 아래 형식과 같이 짓습니다. 
+                                ex) tree_insert.cc -> TreeInsertTest
+   Test의 작명은 테스트가 검증하는 바를 명확히 드러낸다는 조건 하에 자유롭게 짓습니다.
+
+
+5. 각 Test는 아래 유형 중 최소한 세가지의 test case를 가질 것을 권장합니다. 
+   유형은 선택 유형은 다음과 같습니다.
+   1) 빈 객체에 대한 test
+   2) Fixture::SetUp() 을 마친 객체에 대한 test
+   3) Value Parameterized test
+   4) 잘못된 입력에 대한 test
+   5) default(integer type) 이외의 type에 대한 test
+
+6. 주석 스타일은 기존 정의된 바와 동일합니다.
+
+7. (2023-12-13 현재기준)
+   test case에 대한 예제는 tree_insert.cc와 set_insert.cc 에 작성되어 있으니 참고 바랍니다. 
