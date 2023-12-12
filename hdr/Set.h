@@ -36,6 +36,7 @@ class Set : protected TYPE_SETTABLE {
 public:
   template<typename TYPE_KEY> void Minimum(TYPE_KEY x) {
     std::cout << Return_Depth(Return_Minimum(x));
+    //std::cout << TYPE_SETTABLE::Return_Depth(TYPE_SETTABLE::Return_Minimum(x)) << "\n";
   }
   template<typename TYPE_KEY> void Maximum(TYPE_KEY x) {
     std::cout << Return_Depth(Return_Maximum(x));
