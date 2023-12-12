@@ -40,43 +40,71 @@ public:
   int Get_size() {
     return size_;
   }
+
   int Return_Depth(TYPE_KEY x) {
-    return 0;
+      return AvlDepth(root_, x, 0);
   }
+
   TYPE_KEY Return_Minimum(TYPE_KEY x) {
-    return 0;
+      //temp는 key값이 x인 node를 가르킴
+      Node<TYPE_KEY>* temp = Do_Search(root_, x);
+      //temp가 루트노드가 되므로 NULL이 나올때까지 왼쪽으로 이동
+      while (temp->left != NULL)
+      {
+          temp = temp->left;
+      }
+      //temp의 key값을 출력해야함
+      cout << temp->key << " ";
+      return temp->key;
   }
+
   TYPE_KEY Return_Maximum(TYPE_KEY x) {
     return 0;
   }
-  void Do_Insert(TYPE_KEY x) {
 
+  void Do_Insert(TYPE_KEY x) {
+      //size가 1 늘어남
+      size_++;
+      //Avl트리에 x가 key인 노드를 삽입
+      AvlInsertNode(x, root_);
   }
+
   void Do_Erase(TYPE_KEY x) {
 
   }
 
 private:
   Node<TYPE_KEY>* root_;
+
   int size_;
 
-  int Return_Height(Node<TYPE_KEY> node) {
+  int Return_Height(Node<TYPE_KEY>* node) {
     return 0;
   }
   int Return_BalanceFactor(Node<TYPE_KEY>* node) {
     return 0;
   }
-  void Do_Rotation_Left(Node<TYPE_KEY>* node) {
+  Node<TYPE_KEY>* Do_Rotation_Left(Node<TYPE_KEY>* node) {
 
   }
-  void Do_Rotation_Right(Node<TYPE_KEY>* node) {
-  }
-  void Do_Rebalance(Node<TYPE_KEY>* node) {
+  Node<TYPE_KEY>* Do_Rotation_Right(Node<TYPE_KEY>* node) {
 
   }
-  void Do_Search(Node<TYPE_KEY>* node, TYPE_KEY k) {
+
+  void Do_Rebalance(Node<TYPE_KEY>*& node, TYPE_KEY k) {
 
   }
+  Node<TYPE_KEY>* Do_Search(Node<TYPE_KEY>* node, TYPE_KEY k) {
+
+  }
+  void AvlInsertNode(TYPE_KEY k, Node<TYPE_KEY>*& node) {
+
+  }
+
+  int AvlDepth(Node<TYPE_KEY>* node, TYPE_KEY k, int d) {
+
+  }
+
 };
 
 #endif

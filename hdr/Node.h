@@ -32,6 +32,8 @@ struct Node {
   Node* parent;
   Node* left;
   Node* right;
+
+  // int height;
 };
 
 #endif

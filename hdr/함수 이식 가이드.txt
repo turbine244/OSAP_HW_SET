@@ -1,0 +1,83 @@
+Node.h
+1. Node 구조체에 height 추가
+ -> set이 사용되는 자료구조는 트리이므로 현재로서는 height 추가가 필요함
+
+
+Settable.h
+추가적인 편집 필요 X
+
+
+Set.h
+1. Settable에 있는 함수를 사용할 때, TYPE_SETTABLE:: 를 붙혀주어야함
+ex) std::cout << Get_size(); -> std::cout << TYPE_SETTABLE::Get_size();
+
+2. Minimum에서 Return_Depth(Return_Minimum(x));를 하면 depth만 출력되므로 Return_Minimum(x)이
+minimum 값도 출력해주는 역할도 동시에 해야함 혹은 구조를 바꿔야함 Maximum도 동일
+
+
+Typedef.h
+
+먼저 private에서 기존에 만들었었던 AvlInsertNode함수와 AvlDepth 함수가 추가되어야한다고 생각
+그 이유는 public 함수들 설명에서 자세하게 서술
+
+public 함수 -> settable에 있는 함수들 오버라이딩
+
+1. int Get_size() : 변경 x
+
+2. int Return_Depth(TYPE_KEY x) :  key값이 x인 노드의 depth를 반환
+	이때 return AvlDepth(root_, x, 0);가 필요
+	이부분 때문에 AvlDepth 함수가 추가되어야 된다고 생각
+
+3. TYPE_KEY Return_Minimum(TYPE_KEY x) : 구현해보았는데 맞는지 확인
+
+4. TYPE_KEY Return_Maximum(TYPE_KEY x) : minimum 복붙후 left를 right으로만 바꿔주면 됨
+
+5. void Do_Insert(TYPE_KEY x) : 사이즈 1 늘어나고 key값이 x인 노드를 삽입
+	노드를 삽입할 때  AvlInsertNode(x, root_); 가 필요함
+	이부분 때문에 AvlInsertNode 함수가 추가되어야 된다고 생각
+
+private 함수 -> 예전 AvlTree에서 구현한 변수와 함수들 구현
+
+함수 설명에 앞서 기존에 함수명 변경 사항들
+AvlSearchNode -> Do_Search
+AvlHeight -> Return_Height
+AvlBalanceFactor -> Return_BalanceFactor
+RightRotation -> Do_Rotation_Right
+LeftRotation -> Do_Rotation_Left
+AvlRebalance -> Do_Rebalance
+
+
+추가된 함수 2개
+AvlInsertNode
+AvlDepth
+
+주의사항 : 이전에 구현된 코드를 가져올 때 Node* 는 Node<TYPE_KEY>*로, int k 는 TYPE_KEY k로 바꾸는 등
+이전에 구현된 int로만 한정된 변수들을 TYPE_KEY로 변경해주어야함 또한 함수내에 있는 함수명도 기존에 함수명이
+쓰였다면 바꿔주어야함
+ex) AvlBalanceFactor함수에서 쓰인 AvlHeight(node->left) -> Return_Height(node->left); 로 바꾸기
+
+1. Node<TYPE_KEY>* root_; : root노드
+
+2. int size_; : 트리의 사이즈
+
+3. int Return_Height(Node<TYPE_KEY>* node) : AvlHeight 과 동일
+
+4. int Return_BalanceFactor(Node<TYPE_KEY>* node) : AvlBalanceFactor 과 동일
+
+5. Node<TYPE_KEY>* Do_Rotation_Left(Node<TYPE_KEY>* node) : LeftRotation과 동일
+
+6.  Node<TYPE_KEY>* Do_Rotation_Right(Node<TYPE_KEY>* node) : RightRotation과 동일 
+
+7.  void Do_Rebalance(Node<TYPE_KEY>*& node, TYPE_KEY k) : AvlRebalance 과 동일
+
+8. Node<TYPE_KEY>* Do_Search(Node<TYPE_KEY>* node, TYPE_KEY k) : AvlSearchNode과 동일
+
+9. void AvlInsertNode(TYPE_KEY k, Node<TYPE_KEY>*& node) : AvlInsertNode와 동일
+
+10. int AvlDepth(Node<TYPE_KEY>* node, TYPE_KEY k, int d) : AvlDepth와 동일
+
+
+
+
+
+
