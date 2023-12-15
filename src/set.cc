@@ -15,6 +15,7 @@ limitations under the License.
  * FileName  : set.h
  * Content   : class 1
  * Test info : 8/8 public
+ * Contributors : 박근원 김성준 양희령 전주원
  *
  * !Remark!
  * The file works as a productive endpoint.
