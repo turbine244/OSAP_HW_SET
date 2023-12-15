@@ -15,6 +15,7 @@ limitations under the License.
  * FileName  : avltree.cc
  * Content   : class 1
  * Test info : 9/9 public
+ * Contributors : 박근원 김성준 양희령 전주원
  *
  * !Remark!
  * Datatypes inheriting interface-Settable.

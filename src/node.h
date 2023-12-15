@@ -14,6 +14,7 @@ limitations under the License.
 /*
  * FileName  : node.h
  * Content   : struct 1
+ * Contributors : 박근원 김성준 양희령 전주원
  *
  * !Remark!
  * The datatype works as a unit definition of "AVL-Tree".
