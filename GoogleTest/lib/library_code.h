@@ -4,19 +4,19 @@
 #include <vector>
 #include "../../src/node.h"
 
-// range 내의 정수 하나를 반환하는 함수
+// Generate random integer (0~range)
 int GenerateInteger(int range);
 
-// range 내의 정수 n개를 vector로 반환하는 함수
+// Generate random intger vectors size of n (0~range)
 std::vector<int> GenerateIntVectors(int n, int range);
 
-//Inorder traverse 함수
+//Inorder traverse
 std::vector<int> InorderTraverse(Node<int>* node);
 
-//Preorder traverse 함수
+//Preorder traverse
 std::vector<int> PreorderTraverse(Node<int>* node);
 
-//Postorder traverse 함수
+//Postorder traverse
 std::vector<int> PostorderTraverse(Node<int>* node);
 
 #endif // LIBRARY_CODE_H_

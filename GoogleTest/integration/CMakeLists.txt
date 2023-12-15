@@ -1,6 +1,8 @@
-# 현재 디렉토리의 모든 파일 추가
+# Add every .cc file in INTEGRATION_TEST_SOURCES
 file(GLOB INTEGRATION_TEST_SOURCES "*.cc")
 
-# integration 테스트 실행 파일 생성
+# Make Integration Test file (name : IntegrationTests)
 add_executable(IntegrationTests ${INTEGRATION_TEST_SOURCES})
+
+# Executable file linking
 target_link_libraries(IntegrationTests common_library gtest gtest_main Set AvlTree)

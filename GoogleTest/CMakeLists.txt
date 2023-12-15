@@ -1,7 +1,8 @@
-#unit 디렉토리 추가
+# add unit directory
 add_subdirectory(unit)
 
-# integration 디렉토리 추가
+# add integration directory
 add_subdirectory(integration)
 
+# add library directory
 add_subdirectory(lib)
